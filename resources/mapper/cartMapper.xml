@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.dao.CartMapper">
+    <select id="select" parameterType="map" resultType="CartDto">
+        SELECT *
+        FROM cart , ord
+        WHERE cust_id = #{custId}
+        AND prod_cd = #{prodCd}
+    </select>
+    <select id="selectAll" parameterType="string" resultType="CartDto">
+        SELECT *
+        FROM cart
+        WHERE cust_id=#{custId}
+    </select>
+    <select id="count" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM cart
+        WHERE cust_id = #{custId}
+    </select>
+    <insert id="insert" parameterType="CartDto">
+        INSERT INTO cart
+            (cust_id, prod_cd, prod_name, prod_qty, tot_setl_price)
+        values
+            (#{custId}, #{prodCd}, #{prodName}, #{prodQty}, #{totSetlPrice})
+    </insert>
+    <delete id="delete" parameterType="map">
+        DELETE
+        FROM cart
+        WHERE cust_id = #{custId}
+        AND prod_cd = #{prodCd}
+    </delete>
+    <delete id="deleteAll" parameterType="string">
+        DELETE FROM cart
+        WHERE cust_id=#{custId}
+    </delete>
+    <update id="update" parameterType="map">
+        UPDATE cart
+        SET  prod_qty  = #{prodQty}
+           , tot_prod_price = #{totProdPrice}
+        WHERE cust_id = #{custId}
+        AND prod_cd = #{prodCd}
+    </update>
+
+    <select id="getOrdHist" parameterType="string" resultType="OrderDto">
+        SELECT CUST_ID,
+               (SELECT CONCAT(PROD_NAME, ' 외 ', (select count(*)from cart where CUST_ID=#{custId})-1, '개' ) FROM cart WHERE CUST_ID = #{custId} LIMIT 1) prodName
+               , COUNT(*) totProdCnt
+               , SUM(TOT_PROD_PRICE) totPrc
+               , SUM(PROD_QTY) totQty
+               , SUM(EXPCT_DC_PRC) totDcPrc
+               , CASE WHEN SUM(TOT_PROD_PRICE) >= 30000 THEN 0 ELSE 3000 END dlvPrc
+               , (SUM(TOT_PROD_PRICE) - SUM(EXPCT_DC_PRC) + (CASE WHEN SUM(TOT_PROD_PRICE) >= 30000 THEN 0 ELSE 3000 END)) finPrc
+        FROM cart
+        WHERE CUST_ID = #{custId}
+    </select>
+</mapper>

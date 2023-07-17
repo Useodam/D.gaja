@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.dao.ProdImgMapper">
+
+    <!-- Select -->
+    <select id="select" parameterType="string" resultType="ProdImgDto">
+        SELECT * FROM PROD_IMG WHERE img_cd = #{imgCd}
+    </select>
+
+    <!-- Select All -->
+    <select id="selectAll" resultType="ProdImgDto">
+        SELECT * FROM PROD_IMG
+    </select>
+
+    <!-- Count -->
+    <select id="count" resultType="int">
+        SELECT COUNT(*) FROM PROD_IMG
+    </select>
+
+    <!-- Insert -->
+    <insert id="insert" parameterType="ProdImgDto">
+        INSERT INTO PROD_IMG
+        (img_cd, prod_cd, img_type, img_desc, img_path, img_height, img_width, img_extns, file_limit, use_yn, del_yn, remark, fst_Reg, fst_Regr, last_Upd, last_Updr)
+        VALUES
+            (#{imgCd}, #{prodCd}, #{imgType}, #{imgDesc}, #{imgPath}, #{imgHeight}, #{imgWidth}, #{imgExtns}, #{fileLimit}, #{useYn}, #{delYn}, #{remark}, #{fstReg}, #{fstRegr}, #{lastUpd}, #{lastUpdr})
+    </insert>
+
+    <!-- Update -->
+    <update id="update" parameterType="ProdImgDto">
+        UPDATE PROD_IMG
+        SET
+            prod_cd = #{prodCd},
+            img_type = #{imgType},
+            img_desc = #{imgDesc},
+            img_path = #{imgPath},
+            img_height = #{imgHeight},
+            img_width = #{imgWidth},
+            img_extns = #{imgExtns},
+            file_limit = #{fileLimit},
+            useYn = #{useYn},
+            del_yn = #{delYn},
+            remark = #{remark},
+            fstReg = #{fstReg},
+            fstRegr = #{fstRegr},
+            lastUpd = #{lastUpd},
+            lastUpdr = #{lastUpdr}
+        WHERE img_cd = #{imgCd}
+    </update>
+
+    <!-- Delete -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM PROD_IMG WHERE img_cd = #{imgCd}
+    </delete>
+
+    <!-- Delete All -->
+    <delete id="deleteAll">
+        DELETE FROM PROD_IMG
+    </delete>
+</mapper>

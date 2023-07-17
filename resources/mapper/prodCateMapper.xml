@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.dao.ProdCateMapper">
+    <!-- Select -->
+    <select id="select" parameterType="int" resultType="ProdCateDto">
+        SELECT * FROM prod_cate WHERE cate_cd = #{cateCd}
+    </select>
+
+    <!-- Select All -->
+    <select id="selectAll" resultType="ProdCateDto">
+        SELECT * FROM prod_cate
+    </select>
+
+    <!-- Count -->
+    <select id="count" resultType="int">
+        SELECT COUNT(*) FROM prod_cate
+    </select>
+
+    <!-- Insert -->
+    <insert id="insert" parameterType="ProdCateDto">
+        INSERT INTO prod_cate (cate_cd, main_cate, main_name, med_name, use_yn, REMARK, FST_REG, FST_REGR, LAST_UPD, LAST_UPDR)
+        VALUES (#{cateCd}, TRUNC(#{cateCd},-2) , (select cm.main_name
+                                                  from prod_cate pc, cate_main cm
+                                                  where pc.main_cate = cm.main_cate
+                                                    AND pc.cate_cd = #{cateCd})
+               , #{medName}, #{useYn}, #{remark}, #{fstReg}, #{fstRegr}, #{lastUpd}, #{lastUpdr})
+    </insert>
+
+    <!-- Update -->
+    <update id="update" parameterType="ProdCateDto">
+        UPDATE prod_cate
+        SET main_name = #{mainName},
+            med_name = #{medName},
+            use_yn = #{useYn},
+            REMARK = #{remark},
+            FST_REG = #{fstReg},
+            FST_REGR = #{fstRegr},
+            LAST_UPD = #{lastUpd},
+            LAST_UPDR = #{lastUpdr}
+        WHERE cate_cd = #{cateCd}
+    </update>
+
+    <!-- Delete -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM prod_cate WHERE cate_cd = #{cateCd}
+    </delete>
+
+    <!-- Delete All -->
+    <delete id="deleteAll">
+        DELETE FROM prod_cate
+    </delete>
+</mapper>

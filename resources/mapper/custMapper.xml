@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.dao.custMapper">
+
+    <select id="select" resultType="CustDto">
+        select *
+        from cust
+        where cust_id = #{custId}
+    </select>
+
+    <select id="findid" resultType="String" parameterType="CustDto">
+        select CUST_ID
+        from cust
+        where name = #{name} and email = #{email} and mpno = #{mpNo}
+    </select>
+
+    <insert id="insert" parameterType="CustDto">
+        INSERT INTO cust
+            (cust_id,PWD,NAME,RCMDR,EMAIL,mpno,CUST_TP,GRADE,STUS,REG_DATE,LGIN_DTTM,fstReg,fstRegr,lastUpd,lastUpdr)
+        VALUES
+            (#{custId}, #{pwd}, #{name}, #{rcmdr}, #{email},#{mpNo},#{custTp},#{grade},#{stus},#{regDate},#{lginDttm},#{fstReg},#{fstRegr},#{lastUpd},#{lastUpdr})
+    </insert>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM cust where cust_id = #{CUST_ID}
+    </delete>
+
+    <update id="update" parameterType="CustDto">
+        UPDATE cust
+        SET pwd = #{pwd}
+          , name = #{name}
+          , mpno = #{mpNo}
+          , email = #{email}
+          , acno = #{acno}
+          , BIRTH = #{birth}
+        where cust_id = #{custId}
+    </update>
+
+
+    <select id="selectAll" resultType="CustDto">
+        select CUST_ID,NAME,MPNO,CUST_TP,GRADE,STUS,BIRTH,EMAIL,AcnO,Gender
+        from cust
+    </select>
+
+    <delete id="deleteAll">
+        delete from cust
+    </delete>
+
+    <select id="count" resultType="int">
+        SELECT count(*) FROM cust
+    </select>
+
+    <select id="modifyselect" resultType="CustDto" parameterType="String">
+    select pwd,name,mpno,grade,birth,email,acno
+    from cust
+    where cust_id = #{custId}
+    </select>
+
+    <select id="temporaryPwd" resultType="CustDto" parameterType="CustDto">
+        select *
+        from cust
+        where cust_id = #{custId} and name = #{name} and mpno = #{mpNo} and email = #{email}
+    </select>
+
+    <update id="temporaryPwdReturn" parameterType="CustDto">
+        UPDATE cust
+        SET pwd = #{pwd}
+        where cust_id = #{custId}
+    </update>
+
+    <update id="custSms" parameterType="CustDto">
+        UPDATE cust
+        SET sms = #{sms}
+        where cust_id = #{custId}
+    </update>
+
+</mapper>
