@@ -61,7 +61,7 @@
 자주 이용하는 쇼핑몰을 주제로 선택하고 웹 개발의 전체 사이클을 경험해보는 것이 목적이었습니다
 
 
-## ERD (살색)
+## ERD (노란색)
 #### 공지사항 / 문의 / 리뷰
 ![ERD](https://github.com/Useodam/D.gaja/blob/main/erd.jpg?raw=true)
 
