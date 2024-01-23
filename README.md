@@ -54,9 +54,10 @@
 -작성예정-
 
 ## ERD (살색)
+#### 공지사항 / 문의 / 리뷰
+![ERD](https://github.com/Useodam/D.gaja/blob/main/erd.jpg?raw=true)
 
-#### 주문/결제(ERD 개발)
--작성예정-
+
 
 ## 구현 기능
 -작성예정-
