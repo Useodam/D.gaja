@@ -58,6 +58,10 @@
 ![ERD](https://github.com/Useodam/D.gaja/blob/main/erd.jpg?raw=true)
 
 
+#### 상품모듈 (팀원 중도하차로 인한 ERD재설계) 문희석,김현우,김유성
+![image](https://github.com/Useodam/D.gaja/assets/134251743/341ebe67-7596-4974-999e-32b05612fb9d)
+
+
 
 ## 구현 기능
 -작성예정-
